@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">ABC Driving School</string>
+    <string name="tv_splash">Welcome to ABC Driving School Co. Ltd Juba South Sudan</string>
+    <string name="tv_description">Providers of Smart, Safe and Skillful Drivers for a Lifetime</string>
+    <string name="enter_your_username">Enter Your Email</string>
+    <string name="enter_your_password">Enter Your Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="don_t_have_an_account">Don’t have an account ?  </string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="already_has_an_account_sign_in">Already has an account ? </string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home Dashboard</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_test">Driving Theory Test</string>
+    <string name="title_activity_dashboard_abc">Dashboard_abcActivity</string>
+    <string name="tv_sign_up">Sign Up</string>
+    <string name="welcome_on_board">Welcome OnBoard!</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="phone_no">Enter Your Phone Number</string>
+    <string name="enter_password">Enter Your Password</string>
+    <string name="enter_your_email">Enter Your Email</string>
+    <string name="enter_your_full_name">Enter Your Full Name</string>
+    <string name="descrip">Let’s help you become a professional driver.</string>
+    <string name="get_started">Get Started</string>
+</resources>

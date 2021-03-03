@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "236900099567",
+    "firebase_url": "https://abc-driving-school-aff83-default-rtdb.firebaseio.com",
+    "project_id": "abc-driving-school-aff83",
+    "storage_bucket": "abc-driving-school-aff83.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236900099567:android:3d15206bea6acadc1fc21a",
+        "android_client_info": {
+          "package_name": "com.example.abc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "236900099567-1e9hsuv0nt55q1ji6oruk33locpvdnf8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAROGCi0XV0MwkebS-NHfHfAXO_J7NjhvM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "236900099567-1e9hsuv0nt55q1ji6oruk33locpvdnf8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

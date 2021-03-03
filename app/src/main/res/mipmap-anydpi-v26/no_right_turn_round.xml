@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/no_right_turn_background"/>
+    <foreground android:drawable="@mipmap/no_right_turn_foreground"/>
+</adaptive-icon>

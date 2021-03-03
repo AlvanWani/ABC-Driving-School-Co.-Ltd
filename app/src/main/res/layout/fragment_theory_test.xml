@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/home_background"
+    android:padding="16dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.test.TestFragment">
+
+    <TextView
+        android:id="@+id/test"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Answer the following Questions by clearly checking the right answer."/>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/tv_high_score"
+        android:layout_marginBottom="20dp"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="High Score: 0"
+        android:layout_above="@id/btn_start_test"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:text="Start Test"
+        android:layout_centerInParent="true"
+        android:id="@+id/btn_start_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+
+</RelativeLayout>
