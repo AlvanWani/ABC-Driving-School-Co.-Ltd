@@ -1,11 +1,10 @@
  package com.example.abc;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -13,11 +12,22 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Collections;
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
- public class Quizs extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Locale;
+
+ public class  Quizs extends AppCompatActivity {
     public static final String EXTRA_SCORE = "extraScore";
+    private static final long COUNTDOWN_IN_MILLIS = 30000;
+
+    private static final String KEY_SCORE = "keyScore";
+    private static final String KEY_QUESTION_COUNT = "keyQuestionCount";
+    private static final String KEY_MILLIS_LEFT = "keyMillisLeft";
+    private static final String KEY_ANSWERED = "keyAnswered";
+    private static final String KEY_QUESTION_LIST = "keyQuestionList";
 
     private TextView textViewQuestion,textViewScore,textViewQuestionCountDown,textViewQuestionCount;
     private RadioGroup radioGroup;
@@ -25,8 +35,12 @@ import java.util.List;
     private Button mBtnConfirmNext;
 
     private ColorStateList textColorDefualtRb;
+    private ColorStateList textColorDefualtCd;
 
-    private List<Question> questionList;
+    private CountDownTimer countDownTimer;
+    private long timeLeftInMillis;
+
+    private ArrayList<Question> questionList;
     private int questionCounter;
     private int questionCounterTotal;
     private  Question currentQuestion;
@@ -52,13 +66,31 @@ import java.util.List;
         mBtnConfirmNext = findViewById(R.id.btn_confirm_next);
 
          textColorDefualtRb = rb1.getTextColors();
+         textColorDefualtCd = textViewQuestionCountDown.getTextColors();
 
-        QuizDbHelper dbHelper =new QuizDbHelper(this);
-        questionList = dbHelper.getAllQuestions();
-        questionCounterTotal = questionList.size();
-        Collections.shuffle(questionList);
+        if (savedInstanceState == null) {
+            QuizDbHelper dbHelper = new QuizDbHelper(this);
+            questionList = dbHelper.getAllQuestions();
+            questionCounterTotal = questionList.size();
+            Collections.shuffle(questionList);
 
-        showNextQuestion();
+            showNextQuestion();
+        } else {
+            questionList = savedInstanceState.getParcelableArrayList(KEY_QUESTION_LIST);
+            questionCounterTotal = questionList.size();
+            questionCounter = savedInstanceState.getInt(KEY_QUESTION_COUNT);
+            currentQuestion = questionList.get(questionCounter -1);
+            score = savedInstanceState.getInt(KEY_SCORE);
+            timeLeftInMillis = savedInstanceState.getLong(KEY_MILLIS_LEFT);
+            answered = savedInstanceState.getBoolean(KEY_ANSWERED);
+
+            if (!answered) {
+                startCountDown();
+            } else {
+                updateCountDownText();
+                showSolution();
+            }
+        }
 
         mBtnConfirmNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,13 +126,50 @@ import java.util.List;
              textViewQuestionCount.setText("Question: " + questionCounter + "/" +questionCounterTotal);
              answered = false;
              mBtnConfirmNext.setText("Confirm");
+
+             timeLeftInMillis = COUNTDOWN_IN_MILLIS;
+             startCountDown();
          } else {
              finishTest();
          }
+
     }
+
+    private void startCountDown(){
+        countDownTimer = new CountDownTimer(timeLeftInMillis,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished;
+                updateCountDownText();
+            }
+
+            @Override
+            public void onFinish() {
+                timeLeftInMillis = 0;
+                updateCountDownText();
+                checkAnswer();
+            }
+        }.start();
+    }
+   private void updateCountDownText() {
+        int minutes = (int) (timeLeftInMillis/1000) /60;
+        int seconds = (int) (timeLeftInMillis/1000) % 60;
+
+        String timeFormatted = String.format(Locale.getDefault(),"%02d:%02d",minutes,seconds);
+
+        textViewQuestionCountDown.setText(timeFormatted);
+
+        if (timeLeftInMillis < 10000) {
+            textViewQuestionCountDown.setTextColor(Color.RED);
+        } else {
+            textViewQuestionCountDown.setTextColor(textColorDefualtCd);
+        }
+   }
 
     private void checkAnswer() {
         answered = true;
+
+        countDownTimer.cancel();
 
         RadioButton rBtnSelected = findViewById(radioGroup.getCheckedRadioButtonId());
         int answerNr = radioGroup.indexOfChild(rBtnSelected) +1;
@@ -156,5 +225,24 @@ import java.util.List;
         }
 
          backPressedTime = System.currentTimeMillis();
+     }
+
+     @Override
+     protected void onDestroy() {
+         super.onDestroy();
+          if (countDownTimer != null) {
+              countDownTimer.cancel();
+          }
+     }
+
+     @Override
+     protected void onSaveInstanceState(@NonNull Bundle outState) {
+         super.onSaveInstanceState(outState);
+         outState.putInt(KEY_SCORE,score);
+         outState.putInt(KEY_QUESTION_COUNT,questionCounter);
+         outState.putLong(KEY_MILLIS_LEFT,timeLeftInMillis);
+         outState.putBoolean(KEY_ANSWERED,answered);
+         outState.putParcelableArrayList(KEY_QUESTION_LIST,questionList);
+
      }
  }

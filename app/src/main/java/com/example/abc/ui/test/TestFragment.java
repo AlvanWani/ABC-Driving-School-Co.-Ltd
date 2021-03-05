@@ -3,7 +3,6 @@ package com.example.abc.ui.test;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.abc.Dashboard;
 import com.example.abc.Quizs;
 import com.example.abc.R;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
-public class TestFragment extends Fragment {
+public class  TestFragment extends Fragment {
     private static final int REQUEST_CODE_QUIZ = 1;
 
     public static final String SHARED_PREFS = "sharedPrefs";

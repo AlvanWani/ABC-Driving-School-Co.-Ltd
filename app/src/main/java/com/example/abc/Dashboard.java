@@ -1,21 +1,23 @@
 package com.example.abc;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
+import android.view.View;
 import android.view.WindowManager;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -32,8 +34,16 @@ public class Dashboard extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "For Enquiries send us an email", Snackbar.LENGTH_LONG)
+                        .setAction("Send", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","alvan.wani@gmail.com", null));
+                                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+                                emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
+                                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+                            }
+                        }).show();
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
